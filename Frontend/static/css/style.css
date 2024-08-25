@@ -1,0 +1,571 @@
+/* Container and Columns */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5; /* Couleur de fond douce */
+    color: #333;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.columns {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.column {
+    flex: 0 0 50%;
+    padding: 0px;
+    box-sizing: border-box;
+    border-right: 2px solid #007bff; /* Bordure bleue plus épaisse entre les colonnes */
+    overflow: hidden;
+    position: relative;
+    border-radius: 5px;
+    margin: 0 0px;
+}
+
+.last-column {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Utilisez 100vh si vous voulez que la colonne occupe toute la hauteur de la fenêtre */
+}
+
+.title {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+    border-top: 2px solid #007bff;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.sub-columns {
+    display: flex;
+    height: calc(100% - 60px);
+    overflow-x: hidden;
+}
+
+.sub-column {
+    padding: 10px;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.sub-column-waiting, .sub-column-match {
+    display: flex;
+    height: 100%;
+}
+
+.match-list {
+    flex: 2;
+}
+
+.waiting-list, .match-list {
+    width: auto;
+    box-sizing: border-box;
+    padding: 0px;
+    padding-right: 5px;
+    padding-bottom: 3px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+.waiting-list {
+    padding-right: 5px;
+}
+
+.waiting-list-global, .match-list-global {
+    width: 15%;
+    height: 100%;
+}
+
+.waiting-team {
+    text-align: center;
+}
+
+.footer-container {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    margin-top: auto; /* Pousse le footer en bas */
+    padding: 10px 0; /* Espace entre le contenu et le footer */
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-up {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    margin-top: 5px;
+    left: 50px;
+    position: absolute;
+    bottom: 50px;
+    width: 25%;
+}
+
+.quart .footer-up,
+.demi .footer-up,
+.finale.footer-up {
+    left: 40px;
+}
+
+#button4 {
+    margin-right: 25px;
+    width: 75%;
+}
+
+.footer button {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.footer-up button {
+    padding: 5px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.footer-up input {
+    padding: 5px 20px;
+    right: 200px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.blue {
+    background-color: #007bff;
+}
+
+.red {
+    background-color: #FF5722;
+}
+
+.yellow {
+    background-color: #ffc107;
+}
+
+.footer button.blue:hover {
+    background-color: #0056b3;
+}
+
+.footer button.red:hover {
+    background-color: #E64A19; /* Une couleur légèrement plus sombre ou différente pour le hover */
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.left-arrow {
+    left: 10px;
+}
+
+.right-arrow {
+    right: 10px;
+}
+
+.arrow:hover {
+    background-color: #0056b3;
+}
+
+.header {
+    text-align: center;
+}
+
+.match {
+    display: flex; /* Utilisation de Flexbox pour l'alignement */
+    align-items: center; /* Aligne les éléments verticalement au centre */
+    margin-bottom: 3px; /* Espacement entre les éléments */
+    padding: 0; /* Espacement vertical pour plus de clarté */
+    color: #333; /* Texte noir ou gris foncé */
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Ombre légère */
+    transition: background-color 0.3s ease; /* Transition fluide pour les changements de couleur */
+}
+
+.match.green {
+    background-color: #4CAF50; /* Vert moyen */
+}
+
+.match.orange {
+    background-color: #FF5722; /* Orange vif */
+}
+
+.match.default {
+    background-color: #FFFFFF; /* Blanc */
+}
+
+.match input[type="radio"] {
+    margin-right: 5px; /* Espacement entre le bouton radio et le numéro */
+    flex-shrink: 0; /* Empêche le bouton radio de se réduire */
+}
+
+.match-label {
+    display: inline-block; /* Fixe la largeur pour le label */
+    width: 3ch; /* Fixe la largeur à 3 caractères */
+    text-align: center; /* Centre le texte */
+    overflow: hidden; /* Cache tout dépassement */
+    white-space: nowrap; /* Évite les retours à la ligne */
+    text-overflow: ellipsis; /* Ajoute des points de suspension si nécessaire */
+    margin: 0 5px; /* Espacement entre le numéro et le bouton radio */
+}
+
+.match .team-number {
+    flex-shrink: 0; /* Empêche le numéro de se réduire */
+    width: 3ch; /* Fixe une largeur fixe pour les numéros */
+    text-align: center; /* Centre le texte */
+    margin-right: 5px; /* Espacement entre le numéro et le bouton radio */
+}
+
+.quart {
+    flex: 4 1 0%; /* 4/7 de la hauteur totale */
+    position: relative; /* Pour permettre le placement du footer */
+}
+
+.demi {
+    flex: 4 1 0%; /* 2/7 de la hauteur totale */
+    position: relative; /* Pour permettre le placement du footer */
+}
+
+.finale {
+    flex: 3 1 0%; /* 1/7 de la hauteur totale */
+    position: relative; /* Pour permettre le placement du footer */
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden; /* Assurez-vous que le contenu ne dépasse pas */
+}
+
+.content {
+    flex: 1; /* Prend tout l'espace disponible sauf celui occupé par le footer */
+    overflow-y: auto; /* Permet le défilement si le contenu dépasse */
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: #FF5722; /* Orange vif pour les contrôles */
+    margin-right: 5px;
+}
+
+input[type="checkbox"]:hover,
+input[type="radio"]:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.match-list-container {
+    display: flex;
+    justify-content: center; /* Centre les colonnes horizontalement */
+}
+
+/* Les colonnes elles-mêmes */
+.match-list {
+    display: flex;
+    flex-direction: column;
+    width: 33%; /* La largeur de la colonne */
+}
+
+/* Les divs à l'intérieur de chaque colonne */
+.match {
+    display: flex;
+    justify-content: center; /* Centre le contenu à l'intérieur de la div */
+    align-items: center;
+    width: 100%; /* Prend toute la largeur de la colonne */
+}
+
+/* La div que vous souhaitez centrer et limiter à 33% */
+.single-match-list {
+    width: 33%; /* Limite la largeur à 33% */
+    text-align: center; /* Centre le texte à l'intérieur de la div */
+    margin: auto; /* Centre la div horizontalement */
+    margin-bottom: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+match-checkbox {
+    padding: 0px;
+}
+
+.match-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+}
+
+.match-input {
+    margin: 0 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 80px;
+}
+
+.vs-text {
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.match-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.match-button:hover {
+    background-color: #0056b3;
+}
+
+.header-title {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    flex-grow: 1; /* Center the title between the controls */
+}
+
+.error-popup {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    opacity: 0.9;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    max-width: 90%;
+    text-align: center;
+}
+
+.finale .header-controls {
+    display: none;
+}
+
+/* Style pour le loader */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Assurez-vous que le loader est au-dessus des autres éléments */
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+.loader-spinner {
+    border: 8px solid rgba(0, 0, 0, 0.1); /* Bordure légère */
+    border-radius: 50%;
+    border-top: 8px solid #007bff; /* Couleur de la bordure supérieure */
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite; /* Animation de rotation */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader p {
+    margin-top: 10px;
+}
+
+.buttons {
+    padding-top: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px; /* Espace général entre les groupes */
+}
+
+.button-start {
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+    width: 300px; /* Pour uniformiser la largeur des boutons */
+}
+
+.button-start:hover {
+    background-color: #0056b3;
+}
+
+.init {
+    margin-bottom: 150px;
+    background-color: #28a745;
+}
+
+.init:hover {
+    background-color: #218838;
+}
+
+/* Conteneur pour l'inscription d'équipes */
+.register-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+input[type="number"] {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+    width: 160px; /* Largeur plus grande pour plus de clarté */
+}
+
+.register {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.register:hover {
+    background-color: #e0a800;
+}
+
+.unregister-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Modale de confirmation */
+.modal {
+    display: none; /* Caché par défaut */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.confirm {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+
+button.cancel {
+    background-color: #dc3545; /* Rouge pour annuler */
+    color: #ffffff;
+}
+
+button.confirm:hover {
+    background-color: #218838;
+}
+
+button.cancel:hover {
+    background-color: #c82333;
+}
+
+/* Styles spécifiques pour les sections "quart", "demi" et "finale" */
+.quart .single-match-list,
+.demi .single-match-list,
+.finale .single-match-list {
+    display: flex;
+    margin: 0 auto; /* Centre la div horizontalement dans sa colonne parent */
+    margin-bottom: 5px;
+}
+

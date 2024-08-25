@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concours de pétanque Oriol 2024</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <div class="title">Initialisation</div>
+                <div class="buttons">
+                    <button class="init button-start" onclick="init()">Réinitialiser le tournoi</button>
+                    <div class="register-container">
+                        <input id="team-count" placeholder="Nombre d'équipes" />
+                        <button class="register button-start" onclick="multiRegister()">Ajouter des équipes</button>
+                    </div>
+                    <button class="register button-start" onclick="register(1)">Ajouter une équipe</button>
+                    <div class="unregister-container">
+                        <input id="team-unregister-number" placeholder="Numéro de triplette"/>
+                        <button class="unregister button-start" onclick="unregister()">Désinscrire une équipe</button>
+                    </div>
+                </div>
+            </div>
+            <script>
+                // Fonction pour créer une section de match (sans la classe 'column')
+                function createSection(title, id) {
+                    return `
+                    <div class="title">${title}</div>
+                    <div class="content">
+                        <div class="sub-columns">
+                            <div class="waiting-list waiting-list-global">
+                                <div class="header-title">Triplettes en attente</div>
+                                <div id="waiting-list-container-${id}" class="sub-column sub-column-waiting">
+                                </div>
+                            </div>
+                            <div class="match-list match-list-global">
+                                <div class="header-title">Matchs</div>
+                                <div class="header match-header">
+                                    <div class="header-controls">
+                                        <input id="match-team1-input-${id}" class="match-input" placeholder="Equipe 1" />
+                                        <span class="vs-text">vs</span>
+                                        <input id="match-team2-input-${id}" class="match-input" placeholder="Equipe 2" />
+                                        <button class="match-button" onclick="createMatch(${id})">Créer match</button>
+                                    </div>
+                                    <div class="header-controls">
+                                        <input id="match-validate-input-${id}" class="match-input" placeholder="Vainqueur" />
+                                        <button class="match-button validate-button-${id}" onclick="validateWinner(${id})">Valider</button>
+                                    </div>
+                                </div>
+                                <div id="match-list-container-${id}" class="sub-column sub-column-match">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-container">
+                            <div class="footer-up footer-hiddable-${id}">
+                                <input id="lucky-loser-${id}" class="match-input footer-hiddable-${id} lucky-loser" placeholder="Equipe"/>
+                                <button id="button4" class="yellow footer-hiddable-${id}" onclick="luckyLoser(${id})">Repêcher</button>
+                                <button id="button5" class="yellow footer-hiddable-${id}" onclick="autoluckyLoser(${id})" hidden>Repêchage auto.</button>
+                            </div>
+                            <div class="footer">
+                                <button id="button1" class="blue" onclick="generateMatches(${id})">Générer les matchs</button>
+                                <button id="button3" class="red" onclick="unGenerateMatches(${id})">Défaire les matchs</button>
+                                <button id="button2" class="blue" onclick="startMatches(${id})">Lancer les matchs</button>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+
+                // Fonction pour générer toutes les sections
+                function generateSections() {
+                    let startDiv = '<div class="column">';
+                    let hideStartDiv = `<div id="hiddable" class="column">`;
+
+                    const rounds = [
+                        { title: 'Round 1', id: 1, startDiv: startDiv},
+                        { title: 'Round 2', id: 2, startDiv: startDiv },
+                        { title: 'Round 3', id: 3, startDiv: startDiv },
+                        { title: 'Seizièmes de finale', id: 4, startDiv: hideStartDiv},
+                        { title: 'Huitièmes de finale', id: 5,startDiv: startDiv}
+                    ];
+
+                    const finalStages = [
+                        { title: 'Quarts de finale', id: 6, additionalClass: 'quart' },
+                        { title: 'Demi-finales', id: 7, additionalClass: 'demi' },
+                        { title: 'Finale', id: 8, additionalClass: 'finale' }
+                    ];
+
+                    // Générer HTML pour les rounds
+
+                    let html = rounds.map(round => `${round.startDiv}${createSection(round.title, round.id)}</div>`).join('');
+                    
+                    // Générer HTML pour les phases finales avec une colonne spécifique
+                    html += `<div class="column last-column">` +
+                            finalStages.map(stage => `<div class="section ${stage.additionalClass}">${createSection(stage.title, stage.id)}</div>`).join('') +
+                            `</div>`;
+
+                    document.write(html);
+                }
+
+                generateSections();
+
+                function updateColumnVisibility(totalTeam) {
+                    const columnDiv = document.getElementById('hiddable');
+                    let hidden = 0
+                    if (totalTeam < 129) {
+                        columnDiv.setAttribute('hidden', true);
+                        hidden = 1
+                    } else {
+                        columnDiv.removeAttribute('hidden');
+                    }
+                    return hidden;
+                }
+                updateColumnVisibility(0);
+
+                function hideFooterUp() {
+                    for (let i = 1; i <= 3; i++) {
+                        document.querySelectorAll(`.footer-hiddable-${i}`).forEach(div => {
+                        div.setAttribute('hidden', true);
+                        });
+                    }
+                }
+
+                hideFooterUp();
+            </script>
+        </div>
+        <button class="arrow left-arrow">&larr;</button>
+        <button class="arrow right-arrow">&rarr;</button>
+    </div>
+    <!-- Loader -->
+    <div id="loader" class="loader" style="display: none;">
+        <div class="loader-spinner"></div>
+        <p id="loader-message">Chargement en cours...</p>
+    </div>
+    <script src="static/js/script.js"></script>
+</body>
+</html>
+
+
+<div id="confirm-modal-init" class="modal">
+    <div class="modal-content">
+        <p>Un concours est en cours, voulez-vous vraiment le réinitialiser ?</p>
+        <div class="modal-buttons">
+            <button id="confirm-btn-init" class="confirm">Confirmer</button>
+            <button id="cancel-btn-init" class="cancel">Annuler</button>
+        </div>
+    </div>
+</div>
+
+<div id="confirm-modal-registration" class="modal">
+    <div class="modal-content">
+        <p>Êtes-vous sur de vouloir inscrire X triplettes ?</p>
+        <div class="modal-buttons">
+            <button id="confirm-btn-registration" class="confirm">Confirmer</button>
+            <button id="cancel-btn-registration" class="cancel">Annuler</button>
+        </div>
+    </div>
+</div>
+
+<div id="confirm-modal-unregistration" class="modal">
+    <div class="modal-content">
+        <p>Êtes-vous sur de vouloir désinscrire la triplette X ?</p>
+        <div class="modal-buttons">
+            <button id="confirm-btn-unregistration" class="confirm">Confirmer</button>
+            <button id="cancel-btn-unregistration" class="cancel">Annuler</button>
+        </div>
+    </div>
+</div>
+
+<div id="confirm-modal-create-match" class="modal">
+    <div class="modal-content">
+        <p>Les deux équipes n'ont pas autant de victoires. Voulez-vous forcer la créer la création du match ?</p>
+        <div class="modal-buttons">
+            <button id="confirm-btn-create-match" class="confirm">Confirmer</button>
+            <button id="cancel-btn-create-match" class="cancel">Annuler</button>
+        </div>
+    </div>
+</div>
